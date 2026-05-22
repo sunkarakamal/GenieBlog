@@ -110,7 +110,7 @@ A few things I didn't expect:
   dependency graphs.
 
 If any of this sounds useful, you can try it free for 7 days, no card:
-<a href="https://cloudgenie.co" target="_blank" rel="noopener">cloudgenie.io</a>.
+<a href="https://cloudgenie.co" target="_blank" rel="noopener">cloudgenie.co</a>.
 I'd genuinely love to hear what's missing — drop me a line on
 <a href="https://www.linkedin.com/in/kamal-nadh-b1156b75/" target="_blank" rel="noopener">LinkedIn</a>
 or hit the feedback button inside the app.
