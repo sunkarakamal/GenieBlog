@@ -1,6 +1,4 @@
 ---
-Here's your updated `about.astro` with the full story woven in while preserving all the layout structure, imports, and styling from your original. I've also kept your certifications/education + contact section at the bottom so the page stays informative as well as personal.
-Action: file_editor create /app/about.astro --file-text "---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -24,6 +22,7 @@ const certs = [
   'MuleSoft AnyPoint Runtime Fabric on K8s',
 ];
 ---
+
 <BaseLayout title=\"About — Kamal Nadh Sunkara\">
   <Header />
 
@@ -331,5 +330,3 @@ const certs = [
   .contact .links { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1rem; }
   .contact .links a { font-weight: 500; }
 </style>
-"
-Observation: Create successful: /app/about.astro
