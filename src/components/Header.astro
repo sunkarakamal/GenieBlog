@@ -1,0 +1,54 @@
+---
+const base = import.meta.env.BASE_URL;
+const links = [
+  { href: base, label: 'Home' },
+  { href: `${base}about/`, label: 'About' },
+  { href: `${base}posts/`, label: 'Posts' },
+];
+const current = Astro.url.pathname;
+---
+<header>
+  <div class="wrap">
+    <a class="brand" href={base}>
+      <span class="logo">⚡</span>
+      <div>
+        <strong>Kamal Nadh</strong>
+        <small>building CloudGenie</small>
+      </div>
+    </a>
+    <nav>
+      {links.map(l => (
+        <a href={l.href} class:list={[{ active: current === l.href || (l.href !== base && current.startsWith(l.href)) }]}>{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+<style>
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 12, 16, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: .75rem; color: var(--fg); }
+  .brand:hover { color: var(--accent); }
+  .logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 1.1rem;
+  }
+  .brand strong { display: block; font-family: 'Chivo'; font-weight: 700; font-size: .95rem; }
+  .brand small { color: var(--fg-dim); font-size: .75rem; letter-spacing: .03em; }
+  nav { display: flex; gap: 1.5rem; }
+  nav a { color: var(--fg-dim); font-size: .9rem; font-weight: 500; }
+  nav a.active, nav a:hover { color: var(--accent); }
+</style>

@@ -1,0 +1,85 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Kamal Nadh Sunkara — building CloudGenie. Cloud infra, FinOps, AI-assisted DevOps." } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Chivo:wght@600;800;900&display=swap" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+  </head>
+  <body>
+    <slot />
+    <style is:global>
+      :root {
+        --bg: #0a0c10;
+        --bg-elev: #11141b;
+        --fg: #e8eaf0;
+        --fg-dim: #8b92a4;
+        --accent: #5eead4;
+        --accent-2: #a78bfa;
+        --accent-3: #fbbf24;
+        --border: #1f242f;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.7;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--accent); text-decoration: none; transition: color .15s; }
+      a:hover { color: var(--accent-2); }
+      h1, h2, h3, h4 { font-family: 'Chivo', 'Inter', sans-serif; line-height: 1.2; }
+      ::selection { background: var(--accent); color: #000; }
+      code, pre { font-family: 'JetBrains Mono', monospace; font-size: .92em; }
+      pre {
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.25rem 0;
+      }
+      :not(pre) > code {
+        background: var(--bg-elev);
+        padding: .15em .4em;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+      blockquote {
+        border-left: 3px solid var(--accent);
+        padding-left: 1rem;
+        margin: 1.25rem 0;
+        color: var(--fg-dim);
+        font-style: italic;
+      }
+      img { max-width: 100%; border-radius: 8px; }
+      hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    </style>
+  </body>
+</html>

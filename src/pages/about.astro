@@ -1,0 +1,191 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const skills = [
+  { group: 'Cloud', items: ['AWS', 'Azure', 'GCP', 'OpenShift', 'VMware / SCVMM'] },
+  { group: 'Orchestration', items: ['Kubernetes (EKS)', 'ECS', 'Helm', 'Argo CD'] },
+  { group: 'IaC', items: ['Terraform', 'CloudFormation', 'Pulumi', 'Ansible'] },
+  { group: 'CI/CD', items: ['GitHub Actions', 'GitLab', 'Jenkins', 'Azure DevOps'] },
+  { group: 'Languages', items: ['PowerShell', 'Bash', 'Python', 'Go'] },
+  { group: 'Practices', items: ['FinOps', 'SRE', 'GitOps', 'Platform Engineering'] },
+];
+
+const wins = [
+  { title: 'Saved £4k / month at Pearson', detail: '15% YoY AWS cost optimization across production workloads — rightsizing, reserved instances, lifecycle policies.' },
+  { title: 'OpenShift → EKS migration', detail: 'Refactored platform-specific resources for enterprise container workloads, rebuilt CI/CD pipelines, improved deployment scalability.' },
+  { title: 'Reusable Terraform framework', detail: 'Designed an org-structure-aligned Terraform module library with built-in security checks adopted across multiple business units.' },
+  { title: 'Cloud security at 98%', detail: 'Maintained Cisco-aligned guardrails with near-zero vulnerabilities across high-availability production environments.' },
+  { title: 'Lloyds Bank autopayment POC', detail: 'Architected AWS-based payment automation that eliminated customer PII from manual processing flows.' },
+];
+
+const certs = [
+  'Azure Solution Architect',
+  'AWS Solution Foundations (Partners)',
+  'Azure Solution Architecture & Designer',
+  'Red Hat Certified Training (Systems)',
+  'MuleSoft AnyPoint Runtime Fabric on K8s',
+];
+---
+<BaseLayout title="About — Kamal Nadh Sunkara">
+  <Header />
+  <main>
+    <section class="intro">
+      <p class="kicker">About</p>
+      <h1>Two decades shipping cloud platforms — now building one of my own.</h1>
+      <p class="lede">
+        I'm <strong>Kamal Nadh Sunkara</strong>, currently a Senior Platform Engineer
+        on a UK government Department for Work and Pensions (DWP) programme out of
+        Newcastle (SC cleared). Based in <strong>Durham, UK</strong>.
+      </p>
+      <p>
+        Over 20 years I've moved from systems engineering through VMware private
+        clouds and Red Hat OpenShift into AWS- and Azure-native platform engineering.
+        Along the way I've designed VPC topologies, built Terraform frameworks
+        adopted across business units, migrated OpenShift workloads onto EKS,
+        optimized seven-figure cloud bills, and mentored offshore teams.
+      </p>
+      <p>
+        What ties it together: I like turning the <em>"this should already exist"</em>
+        feeling into actual platforms. <a href="https://cloudgenie.io" target="_blank" rel="noopener">CloudGenie</a>
+        is the latest expression of that — a single console that handles multi-cloud
+        inventory, FinOps optimization, IaC generation, and an AI Copilot that
+        explains <em>why</em> your spend just jumped.
+      </p>
+    </section>
+
+    <hr />
+
+    <section>
+      <h2>What I'm good at</h2>
+      <div class="grid">
+        {skills.map(s => (
+          <div class="card">
+            <h3>{s.group}</h3>
+            <ul>{s.items.map(i => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <section>
+      <h2>Things I'm proud of</h2>
+      <ul class="wins">
+        {wins.map(w => (
+          <li>
+            <strong>{w.title}</strong>
+            <p>{w.detail}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <hr />
+
+    <section class="two-col">
+      <div>
+        <h2>Certifications</h2>
+        <ul class="bullets">{certs.map(c => <li>{c}</li>)}</ul>
+      </div>
+      <div>
+        <h2>Education</h2>
+        <ul class="bullets">
+          <li><strong>MSc Computer Science</strong> — Nagarjuna University (2003)</li>
+          <li><strong>BSc Computer Science</strong> — Nagarjuna University (2001)</li>
+        </ul>
+        <h2 style="margin-top:1.5rem;">Languages</h2>
+        <ul class="bullets">
+          <li>English — fluent</li>
+          <li>Hindi · Telugu — native</li>
+        </ul>
+      </div>
+    </section>
+
+    <hr />
+
+    <section class="contact">
+      <h2>Get in touch</h2>
+      <p>
+        I write about cloud platforms, FinOps and the messy reality of multi-cloud here.
+        If anything resonates — or if you want to chat about CloudGenie — reach out:
+      </p>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/kamal-nadh-b1156b75/" target="_blank" rel="noopener">LinkedIn →</a>
+        <a href="https://github.com/sunkarakamal" target="_blank" rel="noopener">GitHub →</a>
+        <a href="mailto:kamsun.uk@gmail.com">Email →</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  main { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 2rem; }
+  .kicker {
+    display: inline-block;
+    color: var(--accent);
+    font-size: .8rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: .2rem .7rem; border: 1px solid var(--accent); border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-family: 'Chivo';
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+  }
+  h2 {
+    font-family: 'Chivo';
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  h3 {
+    font-family: 'Chivo';
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--accent);
+    margin-bottom: .5rem;
+  }
+  .lede { font-size: 1.1rem; color: var(--fg); margin-bottom: 1.25rem; }
+  p { color: var(--fg-dim); margin-bottom: 1rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  .card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+  }
+  .card ul { list-style: none; }
+  .card li { color: var(--fg); font-size: .9rem; padding: .15rem 0; }
+  .wins { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .wins li {
+    padding: 1rem 1.25rem;
+    background: var(--bg-elev);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+  }
+  .wins strong { display: block; margin-bottom: .35rem; color: var(--fg); }
+  .wins p { color: var(--fg-dim); margin-bottom: 0; font-size: .92rem; }
+  .two-col {
+    display: grid; gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .bullets { list-style: none; }
+  .bullets li {
+    padding: .35rem 0; color: var(--fg);
+    border-bottom: 1px dashed var(--border);
+  }
+  .bullets li:last-child { border-bottom: none; }
+  .contact .links { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1rem; }
+  .contact .links a { font-weight: 500; }
+</style>

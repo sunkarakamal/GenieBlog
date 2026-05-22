@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Kamal Nadh Sunkara — building CloudGenie">
+  <Header />
+  <main>
+    <section class="hero">
+      <p class="kicker">⚡ Now shipping</p>
+      <h1>Hi, I'm Kamal Nadh. <span class="grad">I build cloud platforms.</span></h1>
+      <p class="lede">
+        20+ years in IT, the last 8 deep in cloud — AWS, Azure, Kubernetes, Terraform, OpenShift.
+        Currently building <a href="https://cloudgenie.io" target="_blank" rel="noopener">CloudGenie</a> — a multi-cloud
+        intelligence platform that turns weeks of Terraform / FinOps / CI-CD wiring into a single console.
+      </p>
+      <div class="cta">
+        <a href={`${base}about/`} class="btn-primary">About me →</a>
+        <a href="https://github.com/sunkarakamal" target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/kamal-nadh-b1156b75/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+      </div>
+    </section>
+
+    <section class="posts">
+      <h2>Latest writing</h2>
+      <ul>
+        {posts.map(p => (
+          <li>
+            <a href={`${base}posts/${p.slug}/`}>
+              <div class="meta">
+                <time>{p.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
+                {p.data.tags.length > 0 && (
+                  <span class="tags">{p.data.tags.map(t => <span>{t}</span>)}</span>
+                )}
+              </div>
+              <h3>{p.data.heroEmoji ? `${p.data.heroEmoji} ` : ''}{p.data.title}</h3>
+              <p>{p.data.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+      {posts.length === 0 && <p class="empty">First post drops soon. <a href={`${base}about/`}>Read the about page</a> in the meantime.</p>}
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  main { max-width: 720px; margin: 0 auto; padding: 4rem 1.25rem 2rem; }
+  .hero { margin-bottom: 5rem; }
+  .kicker {
+    display: inline-block;
+    color: var(--accent);
+    font-size: .8rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: .25rem .75rem; border: 1px solid var(--accent); border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-family: 'Chivo', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-bottom: 1.5rem;
+  }
+  .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lede {
+    color: var(--fg-dim);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .btn-primary, .btn-ghost {
+    padding: .65rem 1.2rem; border-radius: 8px;
+    font-size: .9rem; font-weight: 500;
+    transition: transform .15s, background .15s, border-color .15s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #000;
+  }
+  .btn-primary:hover { transform: translateY(-1px); color: #000; }
+  .btn-ghost {
+    background: transparent; color: var(--fg);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .posts h2 {
+    font-family: 'Chivo';
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    color: var(--fg-dim);
+    font-weight: 600;
+  }
+  .posts ul { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+  .posts li a {
+    display: block; padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-elev);
+    color: var(--fg);
+    transition: border-color .15s, transform .15s;
+  }
+  .posts li a:hover { border-color: var(--accent); transform: translateX(2px); color: var(--fg); }
+  .meta {
+    display: flex; gap: 1rem; align-items: center;
+    color: var(--fg-dim); font-size: .8rem;
+    margin-bottom: .5rem;
+  }
+  .tags { display: flex; gap: .35rem; }
+  .tags span {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: .1rem .55rem; border-radius: 999px;
+    font-size: .7rem; color: var(--fg-dim);
+  }
+  .posts li h3 { font-size: 1.2rem; margin-bottom: .5rem; }
+  .posts li p { color: var(--fg-dim); font-size: .95rem; }
+  .empty { color: var(--fg-dim); padding: 2rem; text-align: center; border: 1px dashed var(--border); border-radius: 10px; }
+</style>

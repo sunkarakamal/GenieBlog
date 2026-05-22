@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="All posts — Kamal Nadh">
+  <Header />
+  <main>
+    <h1>All posts</h1>
+    <ul>
+      {posts.map(p => (
+        <li>
+          <a href={`${base}posts/${p.slug}/`}>
+            <time>{p.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
+            <h2>{p.data.heroEmoji ? `${p.data.heroEmoji} ` : ''}{p.data.title}</h2>
+            <p>{p.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+    {posts.length === 0 && <p class="empty">No posts yet — check back soon.</p>}
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  main { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 2rem; }
+  h1 { font-family: 'Chivo'; font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; }
+  ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  li a {
+    display: block; padding: 1.25rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--fg);
+    transition: border-color .15s, transform .15s;
+  }
+  li a:hover { border-color: var(--accent); transform: translateX(2px); color: var(--fg); }
+  time { color: var(--fg-dim); font-size: .8rem; }
+  h2 { font-size: 1.2rem; margin: .25rem 0 .5rem; }
+  p { color: var(--fg-dim); font-size: .95rem; }
+  .empty { color: var(--fg-dim); padding: 2rem; text-align: center; border: 1px dashed var(--border); border-radius: 10px; }
+</style>
